@@ -7,11 +7,7 @@ use bpp_onest_lite::{
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
     let config = AppConfig::new()?;
-    let _guard = setup_logging(
-        "app/logs",
-        "bap-adapter",
-        config.logging.log_retention_days,
-    );
+    let _guard = setup_logging("app/logs", "bap-adapter", config.logging.log_retention_days);
 
     let (_shutdown_tx, shutdown_rx) = watch::channel(());
 

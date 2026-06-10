@@ -28,7 +28,10 @@ fn cleanup_old_logs(log_dir: &str, service_name: &str, days_to_keep: u64) {
                             if let Ok(file_date) = NaiveDate::parse_from_str(date_str, "%Y-%m-%d") {
                                 if file_date < cutoff_date {
                                     if let Err(e) = fs::remove_file(&file_path) {
-                                        error!("Failed to delete old log file {:?}: {}", file_path, e);
+                                        error!(
+                                            "Failed to delete old log file {:?}: {}",
+                                            file_path, e
+                                        );
                                     } else {
                                         info!("Deleted old log file: {:?}", file_path);
                                     }
