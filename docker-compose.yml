@@ -1,8 +1,8 @@
 services:
-  bpp-onest-lite-up:
+  bpp-onest-lite:
     build: .
-    image: bpp-onest-lite-up
-    container_name: bpp-onest-lite-up
+    image: bpp-onest-lite
+    container_name: bpp-onest-lite
     depends_on:
       redis:
         condition: service_healthy
@@ -33,7 +33,7 @@ services:
 
   db:
     image: postgres:16
-    container_name: bpp-postgres-up
+    container_name: bpp-postgres
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -41,7 +41,7 @@ services:
     ports:
       - "${POSTGRES_PORT}:5432"
     volumes:
-      - up-onest-bpp-lite_postgres_data:/var/lib/postgresql/data
+      - onest-bpp-lite_postgres_data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
       interval: 5s
@@ -50,4 +50,4 @@ services:
     restart: unless-stopped
 
 volumes:
-  up-onest-bpp-lite_postgres_data:
+  onest-bpp-lite_postgres_data:
