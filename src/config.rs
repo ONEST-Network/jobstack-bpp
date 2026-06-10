@@ -56,6 +56,11 @@ pub struct AuthConfig {
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
+pub struct LoggingConfig {
+    pub log_retention_days: u64,
+}
+
+#[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct AppConfig {
     debug: bool,
     pub use_mock_bpp_response: bool,
@@ -67,6 +72,7 @@ pub struct AppConfig {
     pub db: DbConfig,
     pub cron: CronConfig,
     pub auth: AuthConfig,
+    pub logging: LoggingConfig,
 }
 
 impl AppConfig {
