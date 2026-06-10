@@ -80,3 +80,8 @@ cron:
 auth:
   # API key for external requests (optional)
   x_api_key: "your-api-key-here"
+
+# Logging Configuration
+logging:
+  # Number of days to retain log files
+  log_retention_days: 7
