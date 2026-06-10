@@ -2,7 +2,7 @@
 name = "bpp-onest-lite"
 version = "0.1.0"
 edition = "2021"
-authors = ['Dhiway Networks <info@dhiway.com>']
+authors = ["Dhiway Networks <info@dhiway.com>"]
 license = "MIT"
 
 [dependencies]
@@ -24,3 +24,4 @@ redis = { version = "0.32.2", features = ["tokio-comp"] }
 sqlx = { version = "0.8", features = ["runtime-tokio-rustls", "postgres", "uuid", "chrono"] }
 tower-http = { version = "0.5", features = ["cors"] }
 sha2 = "0.10.9"
+chrono-tz = "0.9.0"
