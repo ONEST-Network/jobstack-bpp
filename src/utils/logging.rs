@@ -6,7 +6,7 @@ use tracing::info;
 use tracing_appender::{non_blocking::WorkerGuard, rolling};
 use tracing_subscriber::{fmt, fmt::time::UtcTime, prelude::*, EnvFilter};
 
-fn cleanup_old_logs(log_dir: &str, service_name: &str, days_to_keep: u64) {
+pub fn cleanup_old_logs(log_dir: &str, service_name: &str, days_to_keep: u64) {
     let path = Path::new(log_dir);
     if !path.exists() {
         return;
@@ -46,8 +46,8 @@ fn cleanup_old_logs(log_dir: &str, service_name: &str, days_to_keep: u64) {
     }
 }
 
-pub fn setup_logging(log_dir: &str, svc: &str, log_retention_days: u64) -> WorkerGuard {
-    cleanup_old_logs(log_dir, svc, log_retention_days);
+pub fn setup_logging(log_dir: &str, svc: &str, _log_retention_days: u64) -> WorkerGuard {
+    
 
     let log_file_name = format!("{}.log", svc);
 
