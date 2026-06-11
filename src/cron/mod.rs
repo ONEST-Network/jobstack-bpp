@@ -1,3 +1,4 @@
+use crate::utils;
 mod fetch_profiles;
 use crate::state::AppState;
 use crate::utils::cron::build_cron_expr;
@@ -44,7 +45,27 @@ pub async fn start_cron_jobs(
         )
         .await
         .unwrap();
+
+    let log_cleanup_job = Job::new_async("0 0 0 * * *", {
+        let state = state.clone();
+        move |_uuid, _l| {
+            let state = state.clone();
+            Box::pin(async move {
+                utils::logging::cleanup_old_logs(
+                    "app/logs",
+                    "bap-adapter",
+                    state.config.logging.log_retention_days,
+                );
+            })
+        }
+    })
+    .unwrap();
+
+    scheduler.add(log_cleanup_job).await.unwrap();
+    tracing::info!("📅 Scheduling log cleanup cron: every day at midnight");
+
     scheduler.start().await?;
 
     Ok(scheduler)
 }
+
